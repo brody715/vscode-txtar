@@ -1,0 +1,303 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "txtar",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#commands"
+    },
+    {
+      "include": "#files"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.txtar",
+          "begin": "#",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.txtar"
+            }
+          },
+          "end": "$"
+        }
+      ]
+    },
+    "commands": {
+      "patterns": [
+        {
+          "name": "support.command.txtar",
+          "begin": "^(\\[(!)?(.*?)\\])?(?:\\s*(!))?(?:\\s*(\\w\\S*))",
+          "beginCaptures": {
+            "2": {
+              "name": "operator.txtar"
+            },
+            "3": {
+              "name": "variable.txtar"
+            },
+            "4": {
+              "name": "operator.txtar"
+            },
+            "5": {
+              "name": "keyword.control.txtar"
+            }
+          },
+          "end": "(?:(&)\\s*)?$",
+          "endCaptures": {
+            "1": {
+              "name": "operator.txtar"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#strings"
+            },
+            {
+              "include": "#variables"
+            }
+          ]
+        }
+      ]
+    },
+    "files": {
+      "patterns": [
+        {
+          "begin": "^-- (\\S+\\.(?:bash|sh)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.shellscript",
+          "patterns": [
+            {
+              "include": "source.shell"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:bat|cmd)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.bat"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.bat",
+          "patterns": [
+            {
+              "include": "source.batchfile"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.diff) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.diff"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.diff",
+          "patterns": [
+            {
+              "include": "source.diff"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.go) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^--|\\z)",
+          "contentName": "meta.embedded.block.go",
+          "patterns": [
+            {
+              "include": "source.go"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.html) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^--|\\z)",
+          "contentName": "meta.embedded.block.html",
+          "patterns": [
+            {
+              "include": "source.html"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.json) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^--|\\z)",
+          "contentName": "meta.embedded.block.json",
+          "patterns": [
+            {
+              "include": "source.json"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.toml) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^--|\\z)",
+          "contentName": "meta.embedded.block.toml",
+          "patterns": [
+            {
+              "include": "source.toml"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.pl) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^--|\\z)",
+          "contentName": "meta.embedded.block.perl",
+          "patterns": [
+            {
+              "include": "source.perl"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.ps1) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^--|\\z)",
+          "contentName": "meta.embedded.block.powershell",
+          "patterns": [
+            {
+              "include": "source.powershell"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.py) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^--|\\z)",
+          "contentName": "meta.embedded.block.python",
+          "patterns": [
+            {
+              "include": "source.python"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.rb) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^--|\\z)",
+          "contentName": "meta.embedded.block.ruby",
+          "patterns": [
+            {
+              "include": "source.ruby"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.txt) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^--|\\z)",
+          "contentName": "meta.embedded.block.plaintext"
+        },
+        {
+          "begin": "^-- (\\S+\\.tmpl) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^--|\\z)",
+          "contentName": "meta.embedded.block.go-template"
+        },
+        {
+          "begin": "^-- (\\S+\\.yaml) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^--|\\z)",
+          "contentName": "meta.embedded.block.yaml",
+          "patterns": [
+            {
+              "include": "source.yaml"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^--|\\z)",
+          "contentName": "string.unquoted.txtar"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.txtar",
+          "begin": "'",
+          "end": "'"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.txtar",
+          "match": "\\$\\w+"
+        },
+        {
+          "name": "variable.txtar",
+          "match": "\\$\\{.*?\\}"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.txtar"
+}

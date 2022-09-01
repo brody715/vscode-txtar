@@ -1,0 +1,29 @@
+# Hello
+exec run hello
+
+-- a.c --
+
+int main() {
+}
+
+-- a.go --
+
+func main() {
+
+}
+
+-- a.yaml --
+
+name: Hello, World
+
+-- b.json --
+
+{
+  "name": "hello"
+}
+
+-- a.cue --
+
+module: {}
+
+-- a.bat --

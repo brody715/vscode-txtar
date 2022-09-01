@@ -1,0 +1,773 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "txtar",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#commands"
+    },
+    {
+      "include": "#files"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.txtar",
+          "begin": "#",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.txtar"
+            }
+          },
+          "end": "$"
+        }
+      ]
+    },
+    "commands": {
+      "patterns": [
+        {
+          "name": "support.command.txtar",
+          "begin": "^(\\[(!)?(.*?)\\])?(?:\\s*(!))?(?:\\s*(\\w\\S*))",
+          "beginCaptures": {
+            "2": {
+              "name": "operator.txtar"
+            },
+            "3": {
+              "name": "variable.txtar"
+            },
+            "4": {
+              "name": "operator.txtar"
+            },
+            "5": {
+              "name": "keyword.control.txtar"
+            }
+          },
+          "end": "(?:(&)\\s*)?$",
+          "endCaptures": {
+            "1": {
+              "name": "operator.txtar"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#strings"
+            },
+            {
+              "include": "#variables"
+            }
+          ]
+        }
+      ]
+    },
+    "files": {
+      "patterns": [
+        {
+          "begin": "^-- (\\S+\\.(?:cue|cue.golden)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.cue",
+          "patterns": [
+            {
+              "include": "source.cue"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.txt) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.plaintext",
+          "patterns": []
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:bash|sh)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.shellscript",
+          "patterns": [
+            {
+              "include": "source.shell"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.css) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.css",
+          "patterns": [
+            {
+              "include": "source.css"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:html|htm|shtml|xhtml)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.html",
+          "patterns": [
+            {
+              "include": "text.html.basic"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:ini|conf)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.ini",
+          "patterns": [
+            {
+              "include": "source.ini"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.java) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.java",
+          "patterns": [
+            {
+              "include": "source.java"
+            }
+          ]
+        },
+        {
+          "begin": "^-- () --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.lua",
+          "patterns": [
+            {
+              "include": "source.lua"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.mk) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.makefile",
+          "patterns": [
+            {
+              "include": "source.makefile"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:perl|pl|t)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.perl",
+          "patterns": [
+            {
+              "include": "source.perl"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:R|r)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.r",
+          "patterns": [
+            {
+              "include": "source.r"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:rb|ruby)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.ruby",
+          "patterns": [
+            {
+              "include": "source.ruby"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.php) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.php",
+          "patterns": [
+            {
+              "include": "text.html.basic"
+            },
+            {
+              "include": "source.php"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:sql|ddl|dml)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.sql",
+          "patterns": [
+            {
+              "include": "source.sql"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.vb) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.vs_net",
+          "patterns": [
+            {
+              "include": "source.asp.vb.net"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.xml) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.xml",
+          "patterns": [
+            {
+              "include": "text.xml"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:xsl|xslt)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.xsl",
+          "patterns": [
+            {
+              "include": "text.xml.xsl"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:yaml|yml)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.yaml",
+          "patterns": [
+            {
+              "include": "source.yaml"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.toml) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.toml",
+          "patterns": [
+            {
+              "include": "source.toml"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:bat|batch)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.dosbatch",
+          "patterns": [
+            {
+              "include": "source.batchfile"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:clj|cljs|clojure)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.clojure",
+          "patterns": [
+            {
+              "include": "source.clojure"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (Cakefile|\\S+\\/Cakefile|\\S+\\.coffee) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.coffee",
+          "patterns": [
+            {
+              "include": "source.coffee"
+            }
+          ]
+        },
+        {
+          "begin": "^-- () --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.c",
+          "patterns": [
+            {
+              "include": "source.c"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:cpp|cc|cxx)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.cpp",
+          "patterns": [
+            {
+              "include": "source.cpp"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:patch|diff|rej)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.diff",
+          "patterns": [
+            {
+              "include": "source.diff"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (Dockerfile|\\S+\\/Dockerfile|\\S+\\.(?:dockerfile|Dockerfile)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.dockerfile",
+          "patterns": [
+            {
+              "include": "source.dockerfile"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:go|go.golden)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.go",
+          "patterns": [
+            {
+              "include": "source.go"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (go.mod|\\S+\\/go.mod|go.mod.golden|\\S+\\/go.mod.golden) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.go.mod",
+          "patterns": [
+            {
+              "include": "source.go.mod"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:tmpl|tpl)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.go-template",
+          "patterns": []
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:js|mjs|cjs)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.javascript",
+          "patterns": [
+            {
+              "include": "source.js"
+            }
+          ]
+        },
+        {
+          "begin": "^-- () --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.javascriptreact",
+          "patterns": [
+            {
+              "include": "source.jsx"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.json) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.json",
+          "patterns": [
+            {
+              "include": "source.json"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.jsonc) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.jsonc",
+          "patterns": [
+            {
+              "include": "source.json.comments"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.less) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.less",
+          "patterns": [
+            {
+              "include": "source.css.less"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.swift) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.swift",
+          "patterns": [
+            {
+              "include": "source.swift"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.scss) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.scss",
+          "patterns": [
+            {
+              "include": "source.css.scss"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.py) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.python",
+          "patterns": [
+            {
+              "include": "source.python"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.rs) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.rust",
+          "patterns": [
+            {
+              "include": "source.rust"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.scala) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.scala",
+          "patterns": [
+            {
+              "include": "source.scala"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.(?:sh|bash|zsh)) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.shellscript",
+          "patterns": [
+            {
+              "include": "source.shell"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.ts) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.typescript",
+          "patterns": [
+            {
+              "include": "source.ts"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.tsx) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.typescriptreact",
+          "patterns": [
+            {
+              "include": "source.tsx"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.cs) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.csharp",
+          "patterns": [
+            {
+              "include": "source.cs"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.dart) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.dart",
+          "patterns": [
+            {
+              "include": "source.dart"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+\\.md) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.markdown",
+          "patterns": [
+            {
+              "include": "text.html.markdown"
+            }
+          ]
+        },
+        {
+          "begin": "^-- (\\S+) --$",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.section.txtar"
+            }
+          },
+          "end": "(?=^-- |\\z)",
+          "contentName": "meta.embedded.block.plaintext"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.txtar",
+          "begin": "'",
+          "end": "'"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.txtar",
+          "match": "\\$\\w+"
+        },
+        {
+          "name": "variable.txtar",
+          "match": "\\$\\{.*?\\}"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.txtar"
+}
